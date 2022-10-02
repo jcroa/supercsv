@@ -18,35 +18,37 @@ import org.supercsv.io.ICsvBeanReader;
 import org.supercsv.mock.CustomerBean;
 import org.supercsv.prefs.CsvPreference;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.FileInputStream;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * Test the super-csv read API processing with BOM file
  */
 public class SuperCsvBOMTest {
 	
-	public static final String ROOT_PATH = SuperCsvBOMTest.class.getResource("/").getPath() + "/";
+	public static final String UTF8_FILE = "customers_utf8.csv";
 	
-	public static final String UTF8_FILE = ROOT_PATH + "customers_utf8.csv";
+	public static final String UTF8_NO_BOM_FILE = "customers_utf8_nobom.csv";
 	
-	public static final String UTF8_NO_BOM_FILE = ROOT_PATH + "customers_utf8_nobom.csv";
+	public static final String UTF16BE_FILE = "customers_utf16be.csv";
 	
-	public static final String UTF16BE_FILE = ROOT_PATH + "customers_utf16be.csv";
-	
-	public static final String UTF16LE_FILE = ROOT_PATH + "customers_utf16le.csv";
-	
+	public static final String UTF16LE_FILE = "customers_utf16le.csv";
+
+	private static BufferedReader createReader(String resourceName, String charsetName) throws IOException {
+		URL resx = SuperCsvBOMTest.class.getClassLoader().getResource(".");
+		String fullFolder = resx.getPath();
+		File file = new File(fullFolder + "/" + resourceName);
+		FileInputStream fis = new FileInputStream(file);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(fis, charsetName));
+		return reader;
+	}
 	/**
 	 * Test the super-csv read API processing UTF8 with BOM file.
 	 */
 	@Test
 	public void testUTF8() throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(UTF8_FILE), "UTF-8")
-		);
+		Reader reader = createReader(UTF8_FILE, "UTF-8");
 		ReadTestCSVFile(reader);
 	}
 	
@@ -55,9 +57,7 @@ public class SuperCsvBOMTest {
 	 */
 	@Test
 	public void testUTF8WithoutBom() throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(UTF8_NO_BOM_FILE), "UTF-8")
-		);
+		Reader reader = createReader(UTF8_NO_BOM_FILE, "UTF-8");
 		ReadTestCSVFile(reader);
 	}
 	
@@ -66,9 +66,7 @@ public class SuperCsvBOMTest {
 	 */
 	@Test
 	public void testUTF16BE() throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(UTF16BE_FILE), "UTF-16be")
-		);
+		Reader reader = createReader(UTF16BE_FILE, "UTF-16be");
 		ReadTestCSVFile(reader);
 	}
 	
@@ -77,9 +75,7 @@ public class SuperCsvBOMTest {
 	 */
 	@Test
 	public void testUTF16LE() throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(UTF16LE_FILE), "UTF-16le")
-		);
+		Reader reader = createReader(UTF16LE_FILE, "UTF-16le");
 		ReadTestCSVFile(reader);
 	}
 	
@@ -88,14 +84,10 @@ public class SuperCsvBOMTest {
 	 */
 	@Test
 	public void testUTF16() throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(UTF16LE_FILE), "UTF-16")
-		);
+		Reader reader = createReader(UTF16LE_FILE, "UTF-16le");
 		ReadTestCSVFile(reader);
 
-		BufferedReader reader1 = new BufferedReader(
-				new InputStreamReader(new FileInputStream(UTF16BE_FILE), "UTF-16")
-		);
+		Reader reader1 = createReader(UTF16BE_FILE, "UTF-16be");
 		ReadTestCSVFile(reader1);
 	}
 	
