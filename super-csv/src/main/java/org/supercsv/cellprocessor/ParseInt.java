@@ -53,19 +53,20 @@ public class ParseInt extends CellProcessorAdaptor implements StringCellProcesso
 	 * @throws SuperCsvCellProcessorException
 	 *             if value is null, isn't an Integer or String, or can't be parsed as an Integer
 	 */
-	public Object execute(final Object value, final CsvContext context) {
+	public <T> T execute(final Object value, final CsvContext context) {
 		validateInputNotNull(value, context);
 		
-		final Integer result;
+		final int result;
 		if( value instanceof Integer ) {
 			result = (Integer) value;
 		} else if( value instanceof String ) {
+			String numberText = "" + value;
 			try {
-				result = Integer.valueOf((String) value);
+				result = Integer.parseInt(numberText);
 			}
 			catch(final NumberFormatException e) {
 				throw new SuperCsvCellProcessorException(
-					String.format("'%s' could not be parsed as an Integer", value), context, this, e);
+					String.format("'%s' could not be parsed as an Integer", numberText), context, this, e);
 			}
 		} else {
 			final String actualClassName = value.getClass().getName();

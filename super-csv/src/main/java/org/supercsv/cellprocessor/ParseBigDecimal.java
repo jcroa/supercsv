@@ -116,7 +116,7 @@ public class ParseBigDecimal extends CellProcessorAdaptor implements StringCellP
 	 * @throws SuperCsvCellProcessorException
 	 *             if value is null, isn't a String, or can't be parsed as a BigDecimal
 	 */
-	public Object execute(final Object value, final CsvContext context) {
+	public <T> T execute(final Object value, final CsvContext context) {
 		validateInputNotNull(value, context);
 		
 		final BigDecimal result;

@@ -323,7 +323,7 @@ public class ParseBool extends CellProcessorAdaptor implements StringCellProcess
 	 * @throws SuperCsvCellProcessorException
 	 *             if value is null, not a String, or can't be parsed to a Boolean
 	 */
-	public Object execute(final Object value, final CsvContext context) {
+	public <T> T execute(final Object value, final CsvContext context) {
 		validateInputNotNull(value, context);
 		
 		if( !(value instanceof String) ) {

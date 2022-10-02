@@ -54,16 +54,16 @@ public class ParseChar extends CellProcessorAdaptor implements StringCellProcess
 	 * @throws SuperCsvCellProcessorException
 	 *             if value is null, isn't a Character or String, or is a String of multiple characters
 	 */
-	public Object execute(final Object value, final CsvContext context) {
+	public <T> T execute(final Object value, final CsvContext context) {
 		validateInputNotNull(value, context);
 		
-		final Character result;
+		char result;
 		if( value instanceof Character ) {
 			result = (Character) value;
 		} else if( value instanceof String ) {
 			final String stringValue = (String) value;
 			if( stringValue.length() == 1 ) {
-				result = Character.valueOf(stringValue.charAt(0));
+				result = stringValue.charAt(0);
 			} else {
 				throw new SuperCsvCellProcessorException(String.format(
 					"'%s' cannot be parsed as a char as it is a String longer than 1 character", stringValue), context,

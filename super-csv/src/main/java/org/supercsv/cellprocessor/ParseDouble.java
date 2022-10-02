@@ -53,7 +53,7 @@ public class ParseDouble extends CellProcessorAdaptor implements StringCellProce
 	 * @throws SuperCsvCellProcessorException
 	 *             if value is null, isn't a Double or String, or can't be parsed as a Double
 	 */
-	public Object execute(final Object value, final CsvContext context) {
+	public <T> T execute(final Object value, final CsvContext context) {
 		validateInputNotNull(value, context);
 		
 		final Double result;

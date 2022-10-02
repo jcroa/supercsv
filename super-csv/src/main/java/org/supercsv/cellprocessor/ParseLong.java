@@ -53,18 +53,19 @@ public class ParseLong extends CellProcessorAdaptor implements StringCellProcess
 	 * @throws SuperCsvCellProcessorException
 	 *             if value is null, isn't a Long or String, or can't be parsed as a Long
 	 */
-	public Object execute(final Object value, final CsvContext context) {
+	public <T> T execute(final Object value, final CsvContext context) {
 		validateInputNotNull(value, context);
 		
-		final Long result;
+		final long result;
 		if( value instanceof Long ) {
 			result = (Long) value;
 		} else if( value instanceof String ) {
+			String numberText = "" + value;
 			try {
-				result = Long.parseLong((String) value);
+				result = Long.parseLong(numberText);
 			}
 			catch(final NumberFormatException e) {
-				throw new SuperCsvCellProcessorException(String.format("'%s' could not be parsed as an Long", value),
+				throw new SuperCsvCellProcessorException(String.format("'%s' could not be parsed as an Long", numberText),
 					context, this, e);
 			}
 		} else {
