@@ -31,6 +31,19 @@
 	
 	<build>
 		<plugins>
+
+			<!-- java compilation -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<compilerVersion>11</compilerVersion>
+					<source>9</source>
+					<target>9</target>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
