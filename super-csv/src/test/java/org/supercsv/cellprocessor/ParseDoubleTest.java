@@ -54,13 +54,14 @@ public class ParseDoubleTest {
 	 */
 	@Test
 	public void testValidDoubles() {
+		final double DELTA = 0.00000001;
 		// positive values
-		assertEquals(POSITIVE_VAL, processor.execute(POSITIVE_VAL, ANONYMOUS_CSVCONTEXT));
-		assertEquals(POSITIVE_VAL, processorChain.execute(POSITIVE_VAL, ANONYMOUS_CSVCONTEXT));
+		assertEquals(POSITIVE_VAL,  processor.execute(POSITIVE_VAL, ANONYMOUS_CSVCONTEXT), DELTA);
+		assertEquals(POSITIVE_VAL, (double) processorChain.execute(POSITIVE_VAL, ANONYMOUS_CSVCONTEXT), DELTA);
 		
 		// negative values
-		assertEquals(NEGATIVE_VAL, processor.execute(NEGATIVE_VAL, ANONYMOUS_CSVCONTEXT));
-		assertEquals(NEGATIVE_VAL, processorChain.execute(NEGATIVE_VAL, ANONYMOUS_CSVCONTEXT));
+		assertEquals(NEGATIVE_VAL, processor.execute(NEGATIVE_VAL, ANONYMOUS_CSVCONTEXT), DELTA);
+		assertEquals(NEGATIVE_VAL, processorChain.execute(NEGATIVE_VAL, ANONYMOUS_CSVCONTEXT), DELTA);
 	}
 	
 	/**
@@ -68,13 +69,14 @@ public class ParseDoubleTest {
 	 */
 	@Test
 	public void testValidDoubleStrings() {
+		final double DELTA = 0.00000001;
 		// positive values
-		assertEquals(POSITIVE_VAL, processor.execute(POSITIVE_STRING, ANONYMOUS_CSVCONTEXT));
-		assertEquals(POSITIVE_VAL, processorChain.execute(POSITIVE_STRING, ANONYMOUS_CSVCONTEXT));
+		assertEquals(POSITIVE_VAL, processor.execute(POSITIVE_STRING, ANONYMOUS_CSVCONTEXT), DELTA);
+		assertEquals(POSITIVE_VAL, processorChain.execute(POSITIVE_STRING, ANONYMOUS_CSVCONTEXT), DELTA);
 		
 		// negative values
-		assertEquals(NEGATIVE_VAL, processor.execute(NEGATIVE_STRING, ANONYMOUS_CSVCONTEXT));
-		assertEquals(NEGATIVE_VAL, processorChain.execute(NEGATIVE_STRING, ANONYMOUS_CSVCONTEXT));
+		assertEquals(NEGATIVE_VAL, processor.execute(NEGATIVE_STRING, ANONYMOUS_CSVCONTEXT), DELTA);
+		assertEquals(NEGATIVE_VAL, processorChain.execute(NEGATIVE_STRING, ANONYMOUS_CSVCONTEXT), DELTA);
 	}
 	
 	/**
