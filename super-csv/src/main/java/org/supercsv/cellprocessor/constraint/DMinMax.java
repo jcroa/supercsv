@@ -130,10 +130,10 @@ public class DMinMax extends CellProcessorAdaptor implements StringCellProcessor
 	 * @throws SuperCsvConstraintViolationException
 	 *             if value doesn't lie between min and max (inclusive)
 	 */
-	public Object execute(final Object value, final CsvContext context) {
+	public <T> T execute(final Object value, final CsvContext context) {
 		validateInputNotNull(value, context);
 		
-		final Double result;
+		final double result;
 		if( value instanceof Double ) {
 			result = (Double) value;
 		} else {

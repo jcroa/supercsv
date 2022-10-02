@@ -56,8 +56,10 @@ public class DMinMaxTest {
 	 */
 	@Test
 	public void testValidDouble() {
-		assertEquals(IN_RANGE, processor.execute(IN_RANGE, ANONYMOUS_CSVCONTEXT), DELTA);
-		assertEquals(IN_RANGE, processorChain.execute(IN_RANGE, ANONYMOUS_CSVCONTEXT), DELTA);
+		double pr = processor.execute(IN_RANGE, ANONYMOUS_CSVCONTEXT);
+		assertEquals(IN_RANGE, pr, DELTA);
+		double prc = processorChain.execute(IN_RANGE, ANONYMOUS_CSVCONTEXT);
+		assertEquals(IN_RANGE, prc, DELTA);
 	}
 	
 	/**
@@ -65,8 +67,10 @@ public class DMinMaxTest {
 	 */
 	@Test
 	public void testValidString() {
-		assertEquals(IN_RANGE, processor.execute(String.valueOf(IN_RANGE), ANONYMOUS_CSVCONTEXT), DELTA);
-		assertEquals(IN_RANGE, processorChain.execute(String.valueOf(IN_RANGE), ANONYMOUS_CSVCONTEXT), DELTA);
+		double pr = processor.execute(String.valueOf(IN_RANGE), ANONYMOUS_CSVCONTEXT);
+		assertEquals(IN_RANGE, pr, DELTA);
+		double prc = processorChain.execute(String.valueOf(IN_RANGE), ANONYMOUS_CSVCONTEXT);
+		assertEquals(IN_RANGE, prc, DELTA);
 	}
 	
 	/**
@@ -75,7 +79,8 @@ public class DMinMaxTest {
 	@Test
 	public void testChainedAfterStringCellProcessor() {
 		final CellProcessor chain = new StrReplace("zero", "0", new DMinMax(MIN, MAX));
-		assertEquals(0.0, chain.execute("zero", ANONYMOUS_CSVCONTEXT), DELTA);
+		double c = chain.execute("zero", ANONYMOUS_CSVCONTEXT);
+		assertEquals(0.0, c, DELTA);
 	}
 	
 	/**
